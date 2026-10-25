@@ -1,0 +1,6 @@
+__pycache__/
+.pytest_cache/
+*.pyc
+ui/node_modules/
+.DS_Store
+.streamlit/secrets.toml

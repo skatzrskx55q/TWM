@@ -1,0 +1,156 @@
+{
+  "world_state": {
+    "entities": [
+      {
+        "id": "Анна",
+        "kind": "character",
+        "stock": 7,
+        "capacity": 12
+      },
+      {
+        "id": "северная_дверь",
+        "kind": "door",
+        "stock": 5,
+        "capacity": 12
+      },
+      {
+        "id": "красный_ключ",
+        "kind": "key",
+        "stock": 3,
+        "capacity": 10
+      },
+      {
+        "id": "комната",
+        "kind": "room",
+        "stock": 2,
+        "capacity": 12
+      }
+    ],
+    "relations": [
+      {
+        "predicate": "подходит",
+        "source": "красный_ключ",
+        "target": "северная_дверь"
+      },
+      {
+        "predicate": "в_комнате",
+        "source": "Анна",
+        "target": "комната"
+      }
+    ]
+  },
+  "laws": [
+    {
+      "id": "закон_отпирания",
+      "priority": 5,
+      "enabled": true,
+      "condition": {
+        "table": [
+          0,
+          0,
+          0,
+          1
+        ],
+        "left": {
+          "predicate": "__twm_action__/verb/открыть",
+          "left": "actor",
+          "right": "u"
+        },
+        "right": {
+          "table": [
+            0,
+            0,
+            0,
+            1
+          ],
+          "left": {
+            "predicate": "__twm_action__/actor",
+            "left": "actor",
+            "right": "u"
+          },
+          "right": {
+            "table": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "left": {
+              "predicate": "__twm_action__/target",
+              "left": "actor",
+              "right": "v"
+            },
+            "right": {
+              "table": [
+                0,
+                0,
+                0,
+                1
+              ],
+              "left": {
+                "predicate": "__twm_action__/instrument",
+                "left": "actor",
+                "right": "w"
+              },
+              "right": {
+                "predicate": "подходит",
+                "left": "w",
+                "right": "v"
+              }
+            }
+          }
+        }
+      },
+      "mode": "consume",
+      "amount": 1,
+      "effect_predicate": "отперто_для",
+      "relation_add": true
+    },
+    {
+      "id": "закон_альтернативы",
+      "priority": 2,
+      "enabled": true,
+      "condition": {
+        "table": [
+          0,
+          0,
+          0,
+          1
+        ],
+        "left": {
+          "predicate": "__twm_action__/verb/открыть",
+          "left": "actor",
+          "right": "u"
+        },
+        "right": {
+          "table": [
+            0,
+            0,
+            0,
+            1
+          ],
+          "left": {
+            "predicate": "__twm_action__/actor",
+            "left": "actor",
+            "right": "u"
+          },
+          "right": {
+            "predicate": "__twm_action__/target",
+            "left": "actor",
+            "right": "v"
+          }
+        }
+      },
+      "mode": "produce",
+      "amount": 1,
+      "effect_predicate": "отперто_для",
+      "relation_add": false
+    }
+  ],
+  "action": {
+    "actor": "Анна",
+    "verb": "открыть",
+    "target": "северная_дверь",
+    "instrument": "красный_ключ"
+  }
+}
